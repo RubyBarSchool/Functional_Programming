@@ -1,2 +1,2 @@
-# Functional_Programming
-Functional Programming with Lambdas &amp; Streams
+# Java Functional Programming
+### Java Functional Programming Udemy [Link](https://www.udemy.com/course/functional-programming-with-java/)
