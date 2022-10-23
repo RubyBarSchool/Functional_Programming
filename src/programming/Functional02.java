@@ -1,6 +1,7 @@
 package programming;
 
 import java.util.List;
+import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -48,6 +49,21 @@ public class Functional02 {
 		.filter(predicateNUmber2)
 		.map(mapperNumber2)
 		.forEach(actionNumber2);
+		
+//		BinaryOperator<Integer> accumulatorNumber = Integer::sum;
+		BinaryOperator<Integer> accumulatorNumber = (a,b) -> a+b;
+		BinaryOperator<Integer> accumulatorNumber2 = new BinaryOperator<Integer>() {
+			
+			@Override
+			public Integer apply(Integer t, Integer u) {
+				// TODO Auto-generated method stub
+				return t+u;
+			}
+		};
+		
+		int sum = numbers.stream()
+		.reduce(0,accumulatorNumber);
+		
 		
 	}
 
