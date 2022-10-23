@@ -1,5 +1,6 @@
 package programming;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
@@ -10,6 +11,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class Functional03 {
 
@@ -39,7 +42,7 @@ public class Functional03 {
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
+		List<Integer> numbers = List.of(9, 1, 2, 3, 4, 5, 6, 7, 8, 9);
 		
 		Predicate<Integer> predicate = x -> x%2==0; // one input, one output type boolean
 		
@@ -64,6 +67,42 @@ public class Functional03 {
 		System.out.println(operator); 
 		
 		Supplier<String> supplier = String::new; // contructer reference
+		
+		Predicate<Integer> predicate2 = x -> x>5;
+		
+		//.allMatch()   all element in stream true 
+		//,noneMatch  all element in stream false
+		//,anyMatch some element in stream true
+		
+		List<Course> courses = List.of(
+				new Course("123", "123"),
+				new Course("456", "123"),
+				new Course("789", "789")
+				);
+		
+		Function<Course, String> courseFunc = course -> course.getUuid();
+		Comparator<Course> comparator = Comparator.comparing(courseFunc)
+													.thenComparing(course -> course.getName())
+													.reversed();
+		
+		
+		Function<Integer, Integer> intFunc = x -> x;
+		numbers.stream().filter(predicate2).sorted(Comparator.comparing(intFunc).reversed()).forEach(System.out::println);
+		
+		// .skip get element after index in put skip
+		// .limit get total element == input limit
+		// .takeWhile get all element same condition
+		// .dropWhile get all element not same conđition
+		// .max get element max same condition
+		// .min get element min same condition
+		// findFirst
+		// findAny
+		// sum
+		
+		System.out.println(courses.stream().collect(Collectors.groupingBy(course -> course.getName())));
+		
+		
+		System.out.println(courses.stream().collect(Collectors.groupingBy(Course::getName,Collectors.mapping(Course::getName, Collectors.toList()))));
 		
 	}
 
